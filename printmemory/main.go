@@ -1,30 +1,29 @@
-package piscine
+package main
 
-func PrintMemory(arr [10]byte) string {
-    hex := "0123456789abcdef"
-    result := ""
+import "fmt"
 
-    // Hexadecimal part
-    for i := 0; i < 10; i++ {
-        b := arr[i]
-        result += string(hex[b/16]) + string(hex[b%16])
+func PrintMemory(arr [10]byte) {
+	hexChars := "0123456789abcdef"
 
-        if i == 3 || i == 7 || i == 9 {
-            result += "\n"
-        } else {
-            result += " "
-        }
-    }
+	// Print hex, 4 bytes per line
+	for i := 0; i < len(arr); i++ {
+		b := arr[i]
+		fmt.Printf("%c%c", hexChars[b/16], hexChars[b%16])
+		if (i+1)%4 == 0 || i == len(arr)-1 {
+			fmt.Println()
+		} else {
+			fmt.Print(" ")
+		}
+	}
 
-    // ASCII part
-    for i := 0; i < 10; i++ {
-        if arr[i] >= 32 && arr[i] <= 126 {
-            result += string(arr[i])
-        } else {
-            result += "."
-        }
-    }
-
-    result += "\n"
-    return result
+	// Print ASCII characters
+	for i := 0; i < len(arr); i++ {
+		b := arr[i]
+		if b >= 32 && b <= 126 {
+			fmt.Printf("%c", b)
+		} else {
+			fmt.Print(".")
+		}
+	}
+	fmt.Println()
 }
